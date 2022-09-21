@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\bin\Debug\net5.0\CourierManagement.Data.deps.json
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\bin\Debug\net5.0\CourierManagement.Data.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\bin\Debug\net5.0\ref\CourierManagement.Data.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\bin\Debug\net5.0\CourierManagement.Data.pdb
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.csprojAssemblyReference.cache
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.AssemblyInfo.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\ref\CourierManagement.Data.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement.Data\obj\Debug\net5.0\CourierManagement.Data.pdb

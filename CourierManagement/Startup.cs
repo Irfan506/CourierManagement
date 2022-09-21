@@ -1,5 +1,9 @@
+using Autofac;
+using CourierManagement.Common;
 using CourierManagement.Data;
 using CourierManagement.Models;
+using CourierManagement.Training;
+using CourierManagement.Training.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,15 +37,41 @@ namespace CourierManagement
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment WebHostEnvironment { get; set; }
+        public static ILifetimeScope AutofacContainer { get; set; }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            var connectionInfo = GetConnectionStringAndAssemblyName();
+
+            builder.RegisterModule(new TrainingModule(connectionInfo.connectionString,
+                connectionInfo.migrationAssemblyName));
+
+            builder.RegisterModule(new CommonModule());
+
+            builder.RegisterModule(new WebModule());
+
+        }
+
+        private (string connectionString, string migrationAssemblyName) GetConnectionStringAndAssemblyName()
+        {
+            var connectionStringName = "DefaultConnection";
+            var connectionString = Configuration.GetConnectionString(connectionStringName);
+            var migrationAssemblyName = typeof(Startup).Assembly.FullName;
+
+            return (connectionString, migrationAssemblyName);
+        }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionInfo = GetConnectionStringAndAssemblyName();
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            options.UseSqlServer(connectionInfo.connectionString));
+
+            services.AddDbContext<TrainingContext>(options =>
+            options.UseSqlServer(connectionInfo.connectionString,
+            b => b.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -66,6 +96,7 @@ namespace CourierManagement
 
 
             services.Configure<SmtpConfiguration>(Configuration.GetSection("Smtp"));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddRazorPages();

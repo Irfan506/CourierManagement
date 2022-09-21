@@ -97,7 +97,6 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
-C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
@@ -120,8 +119,6 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
-C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
-C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.Primitives.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
@@ -220,7 +217,6 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Resources.Reader.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Resources.Writer.dll
-C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Runtime.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
@@ -401,3 +397,18 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\ref\CourierManagement.dll
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\CourierManagement.pdb
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\CourierManagement.genruntimeconfig.cache
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\Autofac.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\Autofac.Extensions.DependencyInjection.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\System.Linq.Dynamic.Core.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Common.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Data.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Training.dll
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Training.pdb
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Common.pdb
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\bin\Debug\net5.0\CourierManagement.Data.pdb
