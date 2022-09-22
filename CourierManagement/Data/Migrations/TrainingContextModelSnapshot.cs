@@ -78,6 +78,8 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Customer_id");
+
                     b.ToTable("Helps");
                 });
 
@@ -111,6 +113,8 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Customer_id");
+
                     b.ToTable("Orders");
                 });
 
@@ -132,6 +136,10 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Courier_id");
+
+                    b.HasIndex("Order_id");
+
                     b.ToTable("Pickups");
                 });
 
@@ -152,6 +160,10 @@ namespace CourierManagement.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Customer_id");
+
+                    b.HasIndex("Order_id");
 
                     b.ToTable("Tracks");
                 });

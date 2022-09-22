@@ -1,0 +1,13 @@
+2022-09-23 00:03:31.869 +06:00 [INF] Application Starting up
+2022-09-23 00:04:26.315 +06:00 [ERR] Add Track Failed
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+AddTrackModel -> Track
+CourierManagement.Areas.Admin.Models.AddTrackModel -> CourierManagement.Training.BusinessObjects.Track
+   at lambda_method635(Closure , Object , Track , ResolutionContext )
+   at CourierManagement.Areas.Admin.Models.AddTrackModel.AddTrack() in C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\Areas\Admin\Models\AddTrackModel.cs:line 34
+   at CourierManagement.Areas.Admin.Controllers.CourierController.AddTrack(AddTrackModel model) in C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\Areas\Admin\Controllers\CourierController.cs:line 76
+2022-09-23 00:09:12.241 +06:00 [INF] Application Starting up
+2022-09-23 00:10:53.050 +06:00 [INF] Application Starting up
+2022-09-23 00:13:02.076 +06:00 [INF] Application Starting up
