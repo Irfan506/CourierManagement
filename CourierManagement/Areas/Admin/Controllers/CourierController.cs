@@ -47,6 +47,94 @@ namespace CourierManagement.Areas.Admin.Controllers
         }
 
 
+        public IActionResult ManageCustomer()
+        {
+            ViewBag.SomeData = "Hello From Asp.Net";
+            var model = new CustomerListModel();
+            return View(model);
+        }
+        public JsonResult GetCustomerData()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new CustomerListModel();
+            var data = model.GetCustomers(dataTablesModel);
+            return Json(data);
+        }
+        
+        public IActionResult EditCustomer(int id)
+        {
+            var model = new EditCustomerModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditCustomer(EditCustomerModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult DeleteCustomer(int id)
+        {
+            var model = new CustomerListModel();
+            model.Delete(id);
+
+            return RedirectToAction(nameof(ManageCustomer));
+
+        }
+
+
+        public IActionResult ManageCourier()
+        {
+            ViewBag.SomeData = "Hello From Asp.Net";
+            var model = new CourierListModel();
+            return View(model);
+        }
+        public JsonResult GetCourierData()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new CourierListModel();
+            var data = model.GetCouriers(dataTablesModel);
+            return Json(data);
+        }
+
+        public IActionResult EditCourier(int id)
+        {
+            var model = new EditCourierModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditCourier(EditCourierModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult DeleteCourier(int id)
+        {
+            var model = new CourierListModel();
+            model.Delete(id);
+
+            return RedirectToAction(nameof(ManageCourier));
+
+        }
+
+
         public IActionResult ManageTrack()
         {
             ViewBag.SomeData = "Hello From Asp.Net";
