@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace CourierManagement.Areas.Admin.Models
 {
-    public class CustomerListModel
+    public class HelpListModel
     {
-        private ICustomerService _customerService;
+        private IHelpService _helpService;
         private IHttpContextAccessor _httpContextAccessor;
-        public CustomerListModel()
+        public HelpListModel()
         {
-            _customerService = Startup.AutofacContainer.Resolve<ICustomerService>();
+            _helpService = Startup.AutofacContainer.Resolve<IHelpService>();
             _httpContextAccessor = Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
         }
 
-        public CustomerListModel(ICustomerService customerService, IHttpContextAccessor httpContextAccessor)
+        public HelpListModel(IHelpService helpService, IHttpContextAccessor httpContextAccessor)
         {
-            _customerService = customerService;
+            _helpService = helpService;
             _httpContextAccessor = httpContextAccessor;
         }
-        internal object GetCustomers(DataTablesAjaxRequestModel tableModel)
+        internal object GetHelps(DataTablesAjaxRequestModel tableModel)
         {
             var session = _httpContextAccessor.HttpContext.Session;
 
-            var data = _customerService.GetCustomers(
+            var data = _helpService.GetHelps(
                 tableModel.PageIndex,
                 tableModel.PageSize,
                 tableModel.SearchText,
-                tableModel.GetSortText(new string[] { "Id", "Name", "Email", "Password" }));
+                tableModel.GetSortText(new string[] { "Id", "Customer_id", "Message", "Status" }));
 
             return new
             {
@@ -43,9 +43,9 @@ namespace CourierManagement.Areas.Admin.Models
                         {
 
                             record.Id.ToString(),
-                            record.Name,
-                            record.Email,
-                            record.Password,
+                            record.Customer_id.ToString(),
+                            record.Message,
+                            record.Status,
                             record.Id.ToString(),
 
                         }
@@ -56,7 +56,7 @@ namespace CourierManagement.Areas.Admin.Models
 
         internal void Delete(int id)
         {
-            _customerService.DeleteCustomer(id);
+            _helpService.DeleteHelp(id);
         }
     }
 }

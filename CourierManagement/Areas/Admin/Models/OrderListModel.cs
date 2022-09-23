@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace CourierManagement.Areas.Admin.Models
 {
-    public class CustomerListModel
+    public class OrderListModel
     {
-        private ICustomerService _customerService;
+        private IOrderService _orderService;
         private IHttpContextAccessor _httpContextAccessor;
-        public CustomerListModel()
+        public OrderListModel()
         {
-            _customerService = Startup.AutofacContainer.Resolve<ICustomerService>();
+            _orderService = Startup.AutofacContainer.Resolve<IOrderService>();
             _httpContextAccessor = Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
         }
 
-        public CustomerListModel(ICustomerService customerService, IHttpContextAccessor httpContextAccessor)
+        public OrderListModel(IOrderService orderService, IHttpContextAccessor httpContextAccessor)
         {
-            _customerService = customerService;
+            _orderService = orderService;
             _httpContextAccessor = httpContextAccessor;
         }
-        internal object GetCustomers(DataTablesAjaxRequestModel tableModel)
+        internal object GetOrders(DataTablesAjaxRequestModel tableModel)
         {
             var session = _httpContextAccessor.HttpContext.Session;
 
-            var data = _customerService.GetCustomers(
+            var data = _orderService.GetOrders(
                 tableModel.PageIndex,
                 tableModel.PageSize,
                 tableModel.SearchText,
-                tableModel.GetSortText(new string[] { "Id", "Name", "Email", "Password" }));
+                tableModel.GetSortText(new string[] { "Id", "Customer_id", "From", "To" }));
 
             return new
             {
@@ -43,9 +43,13 @@ namespace CourierManagement.Areas.Admin.Models
                         {
 
                             record.Id.ToString(),
-                            record.Name,
-                            record.Email,
-                            record.Password,
+                            record.Customer_id.ToString(),
+                            record.From,
+                            record.To,
+                            record.Transaction_id,
+                            record.Payment,
+                            record.Source_to_office,
+                            record.Office_to_destination,
                             record.Id.ToString(),
 
                         }
@@ -56,7 +60,7 @@ namespace CourierManagement.Areas.Admin.Models
 
         internal void Delete(int id)
         {
-            _customerService.DeleteCustomer(id);
+            _orderService.DeleteOrder(id);
         }
     }
 }

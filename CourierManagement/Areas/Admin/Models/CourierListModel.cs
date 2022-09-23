@@ -43,9 +43,9 @@ namespace CourierManagement.Areas.Admin.Models
                         {
 
                             record.Id.ToString(),
-                            record.Name.ToString(),
-                            record.Email.ToString(),
-                            record.Password.ToString(),
+                            record.Name,
+                            record.Email,
+                            record.Password,
                             record.Id.ToString(),
 
                         }

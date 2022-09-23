@@ -135,6 +135,94 @@ namespace CourierManagement.Areas.Admin.Controllers
         }
 
 
+        public IActionResult ManageHelp()
+        {
+            ViewBag.SomeData = "Hello From Asp.Net";
+            var model = new HelpListModel();
+            return View(model);
+        }
+        public JsonResult GetHelpData()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new HelpListModel();
+            var data = model.GetHelps(dataTablesModel);
+            return Json(data);
+        }
+
+        public IActionResult EditHelp(int id)
+        {
+            var model = new EditHelpModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditHelp(EditHelpModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult DeleteHelp(int id)
+        {
+            var model = new HelpListModel();
+            model.Delete(id);
+
+            return RedirectToAction(nameof(ManageHelp));
+
+        }
+
+
+        public IActionResult ManageOrder()
+        {
+            ViewBag.SomeData = "Hello From Asp.Net";
+            var model = new OrderListModel();
+            return View(model);
+        }
+        public JsonResult GetOrderData()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new OrderListModel();
+            var data = model.GetOrders(dataTablesModel);
+            return Json(data);
+        }
+
+        public IActionResult EditOrder(int id)
+        {
+            var model = new EditOrderModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditOrder(EditOrderModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult DeleteOrder(int id)
+        {
+            var model = new OrderListModel();
+            model.Delete(id);
+
+            return RedirectToAction(nameof(ManageOrder));
+
+        }
+
+
         public IActionResult ManageTrack()
         {
             ViewBag.SomeData = "Hello From Asp.Net";

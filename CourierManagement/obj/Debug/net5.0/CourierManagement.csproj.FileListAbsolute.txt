@@ -472,3 +472,7 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageCustomer.cshtml.g.cs
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\EditCourier.cshtml.g.cs
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageCourier.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\EditHelp.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageHelp.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\EditOrder.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageOrder.cshtml.g.cs
