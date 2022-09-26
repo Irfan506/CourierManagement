@@ -37,7 +37,37 @@ namespace CourierManagement.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult Service()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Price()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Price(PriceCalculationModel model, string command)
+        {
+
+            if (command == "By_Air")
+                model.Cost =  model.Quantity * model.Distance * 49;
+            if (command == "By_Ocean")
+                model.Cost = model.Quantity * model.Distance * 39;
+            if (command == "Land_Transport")
+                model.Cost = model.Quantity * model.Distance * 0.59;
+            return View(model);
+
+        }
 
         /*------------------------------------------Admin---------------------*/
 

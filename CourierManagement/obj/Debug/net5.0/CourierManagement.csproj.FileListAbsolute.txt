@@ -476,3 +476,9 @@ C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageHelp.cshtml.g.cs
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\EditOrder.cshtml.g.cs
 C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\ManageOrder.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\Index.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Layout2.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\About.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\Service.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\Contact.cshtml.g.cs
+C:\Users\User\Desktop\CourierManagement\CourierManagement\CourierManagement\obj\Debug\net5.0\Razor\Areas\Admin\Views\Courier\Price.cshtml.g.cs
