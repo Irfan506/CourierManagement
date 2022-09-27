@@ -1,12 +1,19 @@
 ﻿using CourierManagement.Areas.Admin.Models;
+using CourierManagement.Areas.Admin.Models.Account;
 using CourierManagement.Common.Utilities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace CourierManagement.Areas.Admin.Controllers
@@ -32,6 +39,138 @@ namespace CourierManagement.Areas.Admin.Controllers
             _logger = logger;
             _emailSender = emailSender;
             _userSignIn = userSignIn;
+        }
+
+        public async Task<IActionResult> Register(string returnUrl = null)
+        {
+            var model = new RegisterModel();
+            model.ReturnUrl = returnUrl;
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
+
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel model, string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.ActionLink(
+                        "/Account/ConfirmEmail",
+                        values: new { userId = user.Id, code = code, returnUrl = returnUrl },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        return RedirectToAction("Index", "Courier", new { email = model.Email, returnUrl = returnUrl });
+                    }
+                    else
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+
+
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            returnUrl ??= Url.Content("~/");
+
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            var model = new LoginModel();
+            model.ReturnUrl = returnUrl;
+
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginModel model, string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return RedirectToAction("DashBoard");
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Courier");
+            }
         }
         public IActionResult Index()
         {
@@ -68,6 +207,68 @@ namespace CourierManagement.Areas.Admin.Controllers
             return View(model);
 
         }
+
+        public IActionResult AddCustomer()
+        {
+            var model = new AddCustomerModel();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddCustomer(AddCustomerModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.AddCustomer();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Add Account");
+                    _logger.LogError(ex, "Add Account Failed");
+                }
+
+            }
+            return View(model);
+        }
+        SqlConnection con = new SqlConnection();
+        SqlCommand com = new SqlCommand();
+        SqlDataReader dr;
+
+        [HttpGet]
+        public ActionResult CustomerLogin()
+        {
+            return View();
+        }
+        void connetionString()
+        {
+            con.ConnectionString = "Server=DESKTOP-17QPMKC\\SQLEXPRESS;Database=CourierManagement; User Id=CourierManagement; Password =Misbah38;";
+        }
+        const string Setstring = "emailid";
+        [HttpPost]
+        public ActionResult CustomerLogin(CustomerLoginModel acc)
+        {
+            connetionString();
+            con.Open();
+            com.Connection = con;
+            com.CommandText = "select * from Customers where Email='" + acc.Email + "' and Password= '" + acc.Password + "'";
+            dr = com.ExecuteReader();
+            if (dr.Read())
+            {
+
+                HttpContext.Session.SetString(Setstring, acc.Email.ToString());
+                con.Close();
+                return RedirectToAction("UserProfile", "Courier");
+            }
+            else
+            {
+                con.Close();
+                return View("Index");
+            }
+
+        }
+
 
         /*------------------------------------------Admin---------------------*/
 
@@ -385,6 +586,11 @@ namespace CourierManagement.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ManagePickup));
 
+        }
+        /* -----------------------------------------------Customer------------------------------*/
+        public IActionResult UserProfile()
+        {
+            return View();
         }
     }
 }

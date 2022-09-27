@@ -14,6 +14,9 @@ namespace CourierManagement.Profiles
         {
             CreateMap<AddPickupModel, Pickup>().ReverseMap();
             CreateMap<AddTrackModel, Track>().ReverseMap();
+            CreateMap<AddCustomerModel, Customer>().ReverseMap();
+            CreateMap<AddOrderModel, Order>().ReverseMap();
+            CreateMap<AddHelpModel, Help>().ReverseMap();
         }
     }
 }
