@@ -235,6 +235,8 @@ namespace CourierManagement.Areas.Admin.Controllers
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
+        SqlCommand com1 = new SqlCommand();
+        SqlDataReader dr1;
 
         [HttpGet]
         public ActionResult CustomerLogin()
@@ -245,7 +247,7 @@ namespace CourierManagement.Areas.Admin.Controllers
         {
             con.ConnectionString = "Server=DESKTOP-17QPMKC\\SQLEXPRESS;Database=CourierManagement; User Id=CourierManagement; Password =Misbah38;";
         }
-        const string Setstring = "emailid";
+        const string SetUserDetails = "emailid";
         [HttpPost]
         public ActionResult CustomerLogin(CustomerLoginModel acc)
         {
@@ -257,7 +259,7 @@ namespace CourierManagement.Areas.Admin.Controllers
             if (dr.Read())
             {
 
-                HttpContext.Session.SetString(Setstring, acc.Email.ToString());
+                HttpContext.Session.SetString(SetUserDetails, acc.Email.ToString());
                 con.Close();
                 return RedirectToAction("UserProfile", "Courier");
             }
@@ -588,9 +590,110 @@ namespace CourierManagement.Areas.Admin.Controllers
 
         }
         /* -----------------------------------------------Customer------------------------------*/
-        public IActionResult UserProfile()
+        public IActionResult UserProfile(TrackingModel tm)
         {
+            var display = HttpContext.Session.GetString(SetUserDetails);
+            connetionString();
+            con.Open();
+            com.Connection = con;
+            com.CommandText = "select * from Customers where Email='" + display + "' ";
+            dr = com.ExecuteReader();
+            if (dr.Read())
+            {
+                string id = dr["Id"].ToString();
+                string name = dr["Name"].ToString();
+                ViewData["username"] = name;
+                ViewData["id"] = id;
+
+            }
+            con.Close();
+            connetionString();
+            con.Open();
+            com1.Connection = con;
+            com1.CommandText = "select * from Tracks where Id='" + tm.Id + "' ";
+            dr1 = com1.ExecuteReader();
+            if(dr1.Read())
+            {
+                string status = dr1["Status"].ToString();
+                ViewData["status"] = status;
+            }
+            con.Close();
             return View();
         }
+
+        public IActionResult AddOrder()
+        {
+            var model = new AddOrderModel();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddOrder(AddOrderModel model)
+        {
+            var display = HttpContext.Session.GetString(SetUserDetails);
+            connetionString();
+            con.Open();
+            com.Connection = con;
+            com.CommandText = "select * from Customers where Email='" + display + "' ";
+            dr = com.ExecuteReader();
+            if (dr.Read())
+            {
+                string name = dr["Name"].ToString();
+                ViewData["username"] = name;
+
+            }
+            con.Close();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.AddOrder();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Add Order");
+                    _logger.LogError(ex, "Add Order Failed");
+                }
+
+            }
+            return View(model);
+        }
+
+        public JsonResult CustomerData()
+        {
+            var data = "";
+            var display = HttpContext.Session.GetString(SetUserDetails);
+            connetionString();
+            con.Open();
+            com.Connection = con;
+            com.CommandText = "select * from Customers where Email='" + display + "' ";
+            dr = com.ExecuteReader();
+            if (dr.Read())
+            {
+                data = dr["Id"].ToString();
+
+            }
+            con.Close();
+            return Json(data);
+        }
+
+        public IActionResult CustomerUpdate(int id)
+        {
+            var model = new EditCustomerModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult CustomerUpdate(EditCustomerModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+        
     }
 }
