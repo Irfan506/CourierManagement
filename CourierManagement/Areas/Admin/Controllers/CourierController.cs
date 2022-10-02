@@ -694,6 +694,38 @@ namespace CourierManagement.Areas.Admin.Controllers
 
             return View(model);
         }
-        
+
+        public IActionResult AddHelp ()
+        {
+            var model = new AddHelpModel();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddHelp(AddHelpModel model)
+        {
+            var display = HttpContext.Session.GetString(SetUserDetails);
+            connetionString();
+            con.Open();
+            com.Connection = con;
+            com.CommandText = "select * from Customers where Email='" + display + "' ";
+            dr = com.ExecuteReader();
+            con.Close();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.AddHelp();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to send message");
+                    _logger.LogError(ex, "Send Message Failed");
+                }
+
+            }
+            return View(model);
+        }
+
     }
 }
