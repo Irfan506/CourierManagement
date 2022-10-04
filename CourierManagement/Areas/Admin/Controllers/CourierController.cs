@@ -237,6 +237,8 @@ namespace CourierManagement.Areas.Admin.Controllers
         SqlDataReader dr;
         SqlCommand com1 = new SqlCommand();
         SqlDataReader dr1;
+        SqlCommand com3 = new SqlCommand();
+        SqlDataReader dr3;
 
         [HttpGet]
         public ActionResult CustomerLogin()
@@ -262,6 +264,59 @@ namespace CourierManagement.Areas.Admin.Controllers
                 HttpContext.Session.SetString(SetUserDetails, acc.Email.ToString());
                 con.Close();
                 return RedirectToAction("UserProfile", "Courier");
+            }
+            else
+            {
+                con.Close();
+                return View("Index");
+            }
+
+        }
+
+        public IActionResult AddCourier()
+        {
+            var model = new AddCourierModel();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddCourier(AddCourierModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.AddCourier();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Add Account");
+                    _logger.LogError(ex, "Add Account Failed");
+                }
+
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult CourierLogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CourierLogin(CourierLoginModel acc)
+        {
+            connetionString();
+            con.Open();
+            com3.Connection = con;
+            com3.CommandText = "select * from Couriers where Email='" + acc.Email + "' and Password= '" + acc.Password + "'";
+            dr3 = com3.ExecuteReader();
+            if (dr3.Read())
+            {
+
+                HttpContext.Session.SetString(SetUserDetails, acc.Email.ToString());
+                con.Close();
+                return RedirectToAction("CourierProfile", "Courier");
             }
             else
             {
@@ -724,6 +779,73 @@ namespace CourierManagement.Areas.Admin.Controllers
                 }
 
             }
+            return View(model);
+        }
+
+
+        /*______________________________________________________________________Courier____________________________________________________*/
+
+        public IActionResult CourierProfile()
+        {
+            var display = HttpContext.Session.GetString(SetUserDetails);
+            connetionString();
+            con.Open();
+            com3.Connection = con;
+            com3.CommandText = "select * from Couriers where Email='" + display + "' ";
+            dr3 = com3.ExecuteReader();
+            if (dr3.Read())
+            {
+                string id = dr3["Id"].ToString();
+                string name = dr3["Name"].ToString();
+                ViewData["username"] = name;
+                ViewData["id"] = id;
+
+            }
+            con.Close();
+            var model = new OrderListModel();
+            return View(model);
+        }
+        public JsonResult GetOrderDataByCourier()
+        {
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new OrderListModel();
+            var data = model.GetOrders(dataTablesModel);
+            return Json(data);
+        }
+
+        public IActionResult EditOrderByCourier(int id)
+        {
+            var model = new EditOrderModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditOrderByCourier(EditOrderModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return View(model);
+        }
+
+        public IActionResult CourierUpdate(int id)
+        {
+            var model = new EditCourierModel();
+            model.LoadModelData(id);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult CourierUpdate(EditCourierModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
             return View(model);
         }
 

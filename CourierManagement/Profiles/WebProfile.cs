@@ -17,6 +17,7 @@ namespace CourierManagement.Profiles
             CreateMap<AddCustomerModel, Customer>().ReverseMap();
             CreateMap<AddOrderModel, Order>().ReverseMap();
             CreateMap<AddHelpModel, Help>().ReverseMap();
+            CreateMap<AddCourierModel, Courier>().ReverseMap();
         }
     }
 }
