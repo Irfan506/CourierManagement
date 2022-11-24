@@ -18,11 +18,12 @@ namespace CourierManagement.Areas.Admin.Models
         public string From { get; set; }
         [Required]
         public string To { get; set; }
+        public string Source_to_office { get; set; }
+        public string Office_to_destination { get; set; }
+        public string Amount { get; set; }
         [Required]
         public string Transaction_id { get; set; }
         public string Payment { get; set; }
-        public string Source_to_office { get; set; }
-        public string Office_to_destination { get; set; }
 
         private readonly IOrderService _orderService;
 

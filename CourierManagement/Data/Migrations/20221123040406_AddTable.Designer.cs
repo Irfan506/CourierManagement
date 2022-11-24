@@ -3,14 +3,16 @@ using CourierManagement.Training.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CourierManagement.Data.Migrations
 {
     [DbContext(typeof(TrainingContext))]
-    partial class TrainingContextModelSnapshot : ModelSnapshot
+    [Migration("20221123040406_AddTable")]
+    partial class AddTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,8 +80,6 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Customer_id");
-
                     b.ToTable("Helps");
                 });
 
@@ -116,8 +116,6 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Customer_id");
-
                     b.ToTable("Orders");
                 });
 
@@ -139,11 +137,6 @@ namespace CourierManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Courier_id");
-
-                    b.HasIndex("Order_id");
-
-
                     b.ToTable("Pickups");
                 });
 
@@ -164,10 +157,6 @@ namespace CourierManagement.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Customer_id");
-
-                    b.HasIndex("Order_id");
 
                     b.ToTable("Tracks");
                 });

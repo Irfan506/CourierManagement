@@ -9,12 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using QuickMailer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using MailMessage = CourierManagement.Areas.Admin.Models.MailMessage;
 
 namespace CourierManagement.Areas.Admin.Controllers
 {
@@ -334,7 +339,72 @@ namespace CourierManagement.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult DashBoard(MailMessage mailMessage)
+        {
+            try
+            {
+                List<string> toMailAddress = new List<string>();
+                List<string> ccMailAddress = new List<string>();
+                List<string> bccMailAddress = new List<string>();
+                Email email = new Email();
+                toMailAddress = GetValidMail(mailMessage.To);
+                ccMailAddress = GetValidMail(mailMessage.Cc);
+                bccMailAddress = GetValidMail(mailMessage.Bcc);
+                string mgs = "Email send failed.";
 
+                List<Attachment> attachments = new List<Attachment>();
+                if (mailMessage.Files != null)
+                {
+                    foreach (var file in mailMessage.Files)
+                    {
+                        Attachment attachment = new Attachment(file.OpenReadStream(), file.FileName);
+                        attachments.Add(attachment);
+                    }
+
+                }
+
+                bool isSend = email.SendEmail(toMailAddress, Credential.Email, Credential.Password, mailMessage.Subject,
+                     mailMessage.Body, ccMailAddress, bccMailAddress, attachments);
+                if (isSend)
+                {
+                    mgs = "Email has been send.";
+                    ModelState.Clear();
+                }
+
+                ViewBag.Mgs = mgs;
+                return View();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public List<string> GetValidMail(List<string> mails)
+        {
+            List<string> validMails = new List<string>();
+            Email email = new Email();
+            if (mails == null)
+            {
+                return validMails;
+            }
+            if (mails.Any())
+            {
+
+                foreach (var mail in mails)
+                {
+                    bool isValid = email.IsValidEmail(mail);
+                    if (isValid)
+                    {
+                        validMails.Add(mail);
+                    }
+                }
+            }
+
+            return validMails;
+        }
         public IActionResult ManageCustomer()
         {
             ViewBag.SomeData = "Hello From Asp.Net";
@@ -643,6 +713,11 @@ namespace CourierManagement.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ManagePickup));
 
+        }
+
+        public IActionResult Authorize()
+        {
+            return View();
         }
         /* -----------------------------------------------Customer------------------------------*/
         public IActionResult UserProfile(TrackingModel tm)

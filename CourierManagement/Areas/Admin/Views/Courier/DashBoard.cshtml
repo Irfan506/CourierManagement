@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CourierManagement.Areas.Admin.Models.MailMessage
+@{
     ViewData["Title"] = "DashBoard";
 }
 
@@ -60,4 +61,46 @@
         </div>
     </div>
     <!-- ./col -->
+</div>
+
+<h1>Sending Email</h1>
+<div align="center">
+        <div class="col-md-6">
+            <form asp-action="DashBoard" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="To" class="control-label"></label>
+                    <input asp-for="To" class="form-control" />
+                    <span asp-validation-for="To" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cc" class="control-label"></label>
+                    <input asp-for="Cc" class="form-control" />
+                    <span asp-validation-for="Cc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bcc" class="control-label"></label>
+                    <input asp-for="Bcc" class="form-control" />
+                    <span asp-validation-for="Bcc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Body" class="control-label"></label>
+                    <textarea asp-for="Body" class="form-control"></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Files" class="control-label"></label>
+                    <input type="file" multiple="multiple" asp-for="Files" class="form-control" />
+                    <span asp-validation-for="Files" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Send" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
 </div>

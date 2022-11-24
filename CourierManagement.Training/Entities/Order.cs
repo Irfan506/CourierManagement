@@ -13,9 +13,10 @@ namespace CourierManagement.Training.Entities
         public int Customer_id { get; set; }
         public string From { get; set; }
         public string To { get; set; }
-        public string Transaction_id { get; set; }
-        public string Payment { get; set; }
         public string Source_to_office { get; set; }
         public string Office_to_destination { get; set; }
+        public string Amount { get; set; }
+        public string Transaction_id { get; set; }
+        public string Payment { get; set; }
     }
 }

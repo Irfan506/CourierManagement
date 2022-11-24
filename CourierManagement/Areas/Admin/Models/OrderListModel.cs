@@ -46,10 +46,10 @@ namespace CourierManagement.Areas.Admin.Models
                             record.Customer_id.ToString(),
                             record.From,
                             record.To,
-                            record.Transaction_id,
-                            record.Payment,
                             record.Source_to_office,
                             record.Office_to_destination,
+                            record.Transaction_id,
+                            record.Payment,
                             record.Id.ToString(),
 
                         }

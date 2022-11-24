@@ -97,21 +97,28 @@
                         <label asp-for="From" class="col-sm-2 col-form-label">From</label>
                         <div class="col-sm-10">
                             <input type="text" asp-for="From" class="form-control"
-                                   id="from" placeholder="Pickup Point">
+                                   id="from" placeholder="Sender's Number and Address">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label asp-for="To" class="col-sm-2 col-form-label">To</label>
                         <div class="col-sm-10">
                             <input type="text" asp-for="To" class="form-control"
-                                   id="to" placeholder="Delivery Point">
+                                   id="to" placeholder="Receiver's Number and Address">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label asp-for="Transaction_id" class="col-sm-2 col-form-label">Transaction_id</label>
+                        <label asp-for="Amount" class="col-sm-2 col-form-label">Amount</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Amount" class="form-control"
+                                   id="amount" placeholder="Payment">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Transaction_id" class="col-sm-2 col-form-label">Transaction Id</label>
                         <div class="col-sm-10">
                             <input type="text" asp-for="Transaction_id" class="form-control"
-                                   id="to" placeholder="Bkash 01811 222 333">
+                                   id="trnx" placeholder="Bkash 01811 222 333">
                         </div>
                     </div>
 
