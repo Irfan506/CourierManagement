@@ -278,30 +278,7 @@ namespace CourierManagement.Areas.Admin.Controllers
 
         }
 
-        public IActionResult AddCourier()
-        {
-            var model = new AddCourierModel();
-            return View(model);
-        }
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult AddCourier(AddCourierModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    model.AddCourier();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Failed to Add Account");
-                    _logger.LogError(ex, "Add Account Failed");
-                }
-
-            }
-            return View(model);
-        }
+        
 
         [HttpGet]
         public ActionResult CourierLogin()
@@ -490,6 +467,30 @@ namespace CourierManagement.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ManageCourier));
 
+        }
+        public IActionResult AddCourier()
+        {
+            var model = new AddCourierModel();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddCourier(AddCourierModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.AddCourier();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Add Account");
+                    _logger.LogError(ex, "Add Account Failed");
+                }
+
+            }
+            return View(model);
         }
 
 
@@ -877,26 +878,26 @@ namespace CourierManagement.Areas.Admin.Controllers
 
             }
             con.Close();
-            var model = new OrderListModel();
+            var model = new OrderListForCourier();
             return View(model);
         }
         public JsonResult GetOrderDataByCourier()
         {
             var dataTablesModel = new DataTablesAjaxRequestModel(Request);
-            var model = new OrderListModel();
+            var model = new OrderListForCourier();
             var data = model.GetOrders(dataTablesModel);
             return Json(data);
         }
 
         public IActionResult EditOrderByCourier(int id)
         {
-            var model = new EditOrderModel();
-            model.LoadModelData(id);
+            var model = new EditOrderForCourier();
+            model.LoadModelDataForCourier(id);
             return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult EditOrderByCourier(EditOrderModel model)
+        public IActionResult EditOrderByCourier(EditOrderForCourier model)
         {
             if (ModelState.IsValid)
             {
